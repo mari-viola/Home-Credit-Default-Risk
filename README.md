@@ -87,7 +87,6 @@ pytest tests/ -v
 
 - **Índice e quick start:** [docs/INDEX.md](docs/INDEX.md)
 - **Modelo de dados / diagrama:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
-- **Por fase:** [docs/01_ingestion.md](docs/01_ingestion.md), [docs/01b_modelagem_dados.md](docs/01b_modelagem_dados.md), [docs/02_transform_application.md](docs/02_transform_application.md), [docs/02b_eda_dimensions.md](docs/02b_eda_dimensions.md), [docs/03_analytical_layer.md](docs/03_analytical_layer.md)
 - **Relatório de insights (Fase 4):** [docs/RELATORIO_INSIGHTS.md](docs/RELATORIO_INSIGHTS.md)
 
 ## Licença
