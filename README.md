@@ -75,6 +75,8 @@ python -m src.03_analytical_layer
 pip install streamlit   # já está em requirements.txt
 streamlit run src/dashboard.py
 ```
+- Streamlit Link: https://home-credit-default-risk-laugfy9bnnbkjucpa8zhdc.streamlit.app/#dashboard-de-risco-de-credito-home-credit
+
 
 **Testes:**
 
