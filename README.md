@@ -5,11 +5,21 @@
 ![Architecture](https://img.shields.io/badge/Architecture-Medallion-green)
 ![Status](https://img.shields.io/badge/Status-Completed-success)
 
-Este projeto implementa um pipeline de Engenharia de Dados completo para análise de risco de crédito, transformando dados brutos em insights de negócio. A arquitetura segue o padrão **Medallion (Bronze, Silver, Gold)**, garantindo governança, rastreabilidade e performance.
+## 📌 Contexto e Introdução
 
-O resultado final é uma camada analítica robusta (OBT) e um Dashboard interativo para identificação de padrões de inadimplência.
+Este projeto foi desenvolvido sob a perspectiva de um **Engenheiro de Analytics**, responsável por arquitetar a fundação de dados que conecta a matéria-prima (dados brutos e dispersos) à inteligência de negócio.
 
----
+No cenário atual de Big Data, o desafio não é apenas armazenar dados, mas torná-los acessíveis, confiáveis e prontos para o consumo. Este repositório simula um ambiente corporativo onde é necessário estruturar, transformar e analisar grandes volumes de dados financeiros para habilitar times de **Data Science** e **Produto** na criação de modelos preditivos e estratégias de mercado.
+
+## 🎯 Objetivo do Projeto
+
+Construir um **Pipeline Analítico Robusto** que processe as bases de dados relacionais complexas do desafio *"Home Credit Default Risk"*, gerando uma camada analítica consolidada e governada.
+
+Os objetivos específicos são:
+
+1.  **Engenharia de Dados & Qualidade:** Implementar um fluxo de ingestão e transformação resiliente (ETL/ELT), garantindo a limpeza, tipagem e integridade dos dados desde a origem até o consumo.
+2.  **Preparação para Machine Learning (Feature Engineering):** Disponibilizar um dataset analítico final (*One Big Table* - Gold Layer) enriquecido com variáveis explicativas, pronto para alimentar modelos de Credit Scoring.
+3.  **Analytics & Tomada de Decisão:** Construir visualizações interativas e KPIs que permitam a identificação rápida de padrões de inadimplência e a validação de hipóteses de negócio.
 
 ## 📍 Detalhes do Pipeline (Arquitetura Medallion)
 
@@ -71,8 +81,8 @@ Baixe os arquivos e posicione-os na pasta data/raw/ (conforme documentado em doc
 Clone o repositório e crie o ambiente virtual:
 
 ```Bash
-git clone [https://github.com/SEU_USUARIO/NOME_DO_REPO.git](https://github.com/SEU_USUARIO/NOME_DO_REPO.git)
-cd NOME_DO_REPO
+git clone [https://github.com/mari-viola/Home-Credit-Default-Risk.git](https://github.com/mari-viola/Home-Credit-Default-Risk.git)
+cd Home-Credit-Default-Risk
 
 python -m venv .venv
 
@@ -141,11 +151,11 @@ pytest tests/ -v
 ```
 
 ## 📚 Documentação Complementar
-Arquitetura de Dados: [Ver Diagrama e Modelo](https://www.google.com/search?q=docs/ARCHITECTURE.md)
+Arquitetura de Dados: [Ver Diagrama e Modelo](https://github.com/mari-viola/Home-Credit-Default-Risk/blob/main/docs/ARCHITECTURE.md)
 
-Relatório de Insights de Negócio: [Ver Análise Fase 4](https://www.google.com/search?q=docs/RELATORIO_INSIGHTS.md)
+Relatório de Insights de Negócio: [Ver Análise Fase 4](https://github.com/mari-viola/Home-Credit-Default-Risk/blob/main/docs/RELATORIO_INSIGHTS.md)
 
-Guia Rápido: [Index](https://www.google.com/search?q=docs/INDEX.md)
+Guia Rápido: [Index]([https://www.google.com/search?q=docs/INDEX.md](https://github.com/mari-viola/Home-Credit-Default-Risk/blob/main/docs/INDEX.md))
 
 Apresentação do Projeto: [Ver Slides Explicativos (Google Slides)](https://docs.google.com/presentation/d/1kQCmytSamsoO-VmoA7ehcAnfgfrLcEU6WvJZZAb0ZqU/edit?slide=id.p1#slide=id.p1)
 
