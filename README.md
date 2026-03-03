@@ -3,6 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red)
 ![Architecture](https://img.shields.io/badge/Architecture-Medallion-green)
+![Status](https://img.shields.io/badge/Status-Completed-success)
 
 Este projeto implementa um pipeline de Engenharia de Dados completo para análise de risco de crédito, transformando dados brutos em insights de negócio. A arquitetura segue o padrão **Medallion (Bronze, Silver, Gold)**, garantindo governança, rastreabilidade e performance.
 
@@ -10,14 +11,34 @@ O resultado final é uma camada analítica robusta (OBT) e um Dashboard interati
 
 ---
 
-## 🚀 Funcionalidades e Arquitetura
+## 📍 Detalhes do Pipeline (Arquitetura Medallion)
 
-O pipeline processa dados relacionais complexos (1:N) através das seguintes etapas:
+O pipeline foi desenhado para processar dados relacionais complexos com cardinalidade 1:N. Abaixo, o detalhamento técnico de cada estágio:
 
-1.  **Ingestão (Raw → Bronze):** Conversão de CSV para Parquet com tipagem estrita e compressão (Snappy).
-2.  **Refinamento (Bronze → Silver):** Limpeza de dados, tratamento de valores nulos, remoção de anomalias e agregações de tabelas transacionais (Bureau, Installments).
-3.  **Modelagem Analítica (Silver → Gold):** Consolidação em uma *One Big Table* (OBT), criação de novas *features* (Feature Engineering) e cálculo de KPIs de risco.
-4.  **Visualização:** Dashboard interativo para exploração de dados e suporte à decisão.
+### 1. Ingestão (Raw → Bronze)
+* **Objetivo:** Padronização e Performance.
+* **Processo:** Leitura dos arquivos CSV originais e conversão imediata para formato **Parquet** com compressão Snappy.
+* **Destaque:** Implementação de escrita atômica (arquivos `.tmp`) para garantir integridade em caso de falha de gravação e redução drástica do espaço em disco.
+
+### 2. Refinamento (Bronze → Silver)
+* **Objetivo:** Limpeza e Normalização.
+* **Processo:**
+    * Tratamento de anomalias (ex: substituição de valores `365243` em dias de emprego por `NaN`).
+    * Padronização de tipos de dados (casting).
+    * **Agregação de Dimensões:** Tratamento de tabelas transacionais (como *Bureau* e *Installments*) reduzindo a cardinalidade para 1 linha por cliente (Group By SK_ID_CURR) através de médias, somas e contagens.
+
+### 3. Modelagem Analítica (Silver → Gold)
+* **Objetivo:** Enriquecimento e Consumo.
+* **Processo:**
+    * Joins finais entre a tabela de aplicação limpa e as dimensões agregadas.
+    * **Feature Engineering:** Criação de variáveis de negócio, como `credit_income_ratio` (comprometimento de renda) e `ext_source_mean` (score consolidado).
+    * Geração de uma **One Big Table (OBT)** pronta para alimentar modelos de ML ou Dashboards.
+
+### 4. Visualização (Streamlit)
+* **Objetivo:** Suporte à Decisão.
+* **Processo:** Dashboard interativo que consome a camada Gold (com amostragem otimizada para web) para validar hipóteses de risco, comparando métricas do filtro selecionado *versus* a média global da empresa.
+
+---
 
 ## 📂 Estrutura do Projeto
 
@@ -26,10 +47,10 @@ O pipeline processa dados relacionais complexos (1:N) através das seguintes eta
 ├── docs/                 # Documentação técnica detalhada
 ├── notebooks/            # Análises Exploratórias (EDA) e Validação
 ├── src/                  # Código Fonte do Pipeline
-│   ├── 01_ingestion.py           # Ingestão e Padronização
-│   ├── 02_transform_application.py
-│   ├── 02b_transform_dimensions.py
-│   ├── 03_analytical_layer.py    # Construção da Tabela Ouro
+│   ├── 01_ingestion.py           # Ingestão (Raw -> Bronze)
+│   ├── 02_transform_application.py # Limpeza Tabela Principal
+│   ├── 02b_transform_dimensions.py # Agregação Tabelas 1:N
+│   ├── 03_analytical_layer.py    # Feature Eng. & Gold OBT
 │   ├── pipeline.py               # Orquestrador Central
 │   └── dashboard.py              # Aplicação Streamlit
 ├── tests/                # Testes Unitários e de Integração
@@ -42,7 +63,9 @@ O pipeline processa dados relacionais complexos (1:N) através das seguintes eta
 ## 🛠️ Pré-requisitos
 Python 3.8+
 
-Dados de entrada (Dataset Home Credit) posicionados em data/raw/
+Dados de entrada:[ Home Credit Default Risk (Kaggle)](https://www.kaggle.com/competitions/home-credit-default-risk/overview)
+
+Baixe os arquivos e posicione-os na pasta data/raw/ (conforme documentado em docs/).
 
 ## ⚙️ Configuração e Instalação
 Clone o repositório e crie o ambiente virtual:
@@ -123,6 +146,9 @@ Arquitetura de Dados: [Ver Diagrama e Modelo](https://www.google.com/search?q=do
 Relatório de Insights de Negócio: [Ver Análise Fase 4](https://www.google.com/search?q=docs/RELATORIO_INSIGHTS.md)
 
 Guia Rápido: [Index](https://www.google.com/search?q=docs/INDEX.md)
+
+Apresentação do Projeto: [Ver Slides Explicativos (Google Slides)](https://docs.google.com/presentation/d/1kQCmytSamsoO-VmoA7ehcAnfgfrLcEU6WvJZZAb0ZqU/edit?slide=id.p1#slide=id.p1)
+
 
 Autor: Mariana Viola
 Projeto desenvolvido para fins de portfólio e estudo de arquiteturas de Big Data.
